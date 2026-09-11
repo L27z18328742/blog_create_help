@@ -1,0 +1,14 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><title>翻译服务设置</title><link rel="stylesheet" href="ui.css"></head>
+<body><main>
+  <h1>翻译服务设置</h1>
+  <p>填写支持 Chat Completions 和 JSON 输出的服务。保存不会发起翻译。</p>
+  <form id="settings">
+    <label>API 地址<input id="endpoint" type="url" required placeholder="https://api.xiaomimimo.com/v1"><small>可填写基础地址或完整的 /chat/completions 地址。</small></label>
+    <label>模型名称<input id="model" required autocomplete="off"></label>
+    <label>API 密钥<input id="apiKey" type="password" required autocomplete="off"><small>仅存于当前浏览器会话，重启浏览器后需重新填写。不会发送给博客网页。</small></label>
+    <button type="submit">保存设置</button><button id="clear" type="button" class="secondary">清除密钥</button>
+  </form>
+  <p id="status" role="status" aria-live="polite"></p>
+  <p>翻译会将文章文本（含代码上下文）发给你配置的服务。请按该服务的价格、上下文限制和数据政策选择模型。</p>
+</main><script src="options.js"></script></body></html>

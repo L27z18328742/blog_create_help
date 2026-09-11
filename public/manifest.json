@@ -1,0 +1,12 @@
+{
+  "manifest_version": 3,
+  "name": "博客全文翻译",
+  "description": "主动翻译英文技术博客，在原页面阅读中文并随时切回原文。",
+  "version": "0.1.0",
+  "minimum_chrome_version": "120",
+  "permissions": ["activeTab", "scripting", "storage"],
+  "optional_host_permissions": ["https://*/*", "http://localhost/*", "http://127.0.0.1/*"],
+  "background": { "service_worker": "background.js" },
+  "action": { "default_popup": "popup.html" },
+  "options_page": "options.html"
+}

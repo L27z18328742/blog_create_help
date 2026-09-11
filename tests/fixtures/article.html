@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><title>Context-aware caching</title>
+<style>body{font:18px/1.7 system-ui;margin:32px auto;max-width:760px;padding:0 24px}img{width:120px;height:60px}pre{padding:16px;background:#eee;overflow:auto}h1{font-size:32px}</style></head>
+<body>
+<nav>Navigation stays in English</nav>
+<article>
+  <h1>Context-aware caching</h1>
+  <p>A cache stores the result of an expensive computation. Reusing it avoids repeating the same work.</p>
+  <h2>Use a stable key</h2>
+  <p>Use <code>cacheKey</code> to retrieve the result. Read the <a href="#details">documentation</a> for more details.</p>
+  <ol><li>Compute the key.<ul><li>Include the input version.</li></ul></li><li>Store the result.</li></ol>
+  <pre><code>const cacheKey = "article:v1";
+cache.set(cacheKey, result);</code></pre>
+  <figure><img alt="Cache diagram" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='60'%3E%3Crect width='120' height='60' fill='teal'/%3E%3C/svg%3E"><figcaption>The cache connects the two steps.</figcaption></figure>
+  <h3 id="details">Invalidation</h3>
+  <p>Invalidate the cache when the input changes. The next request will compute a fresh result.</p>
+  <aside>Related posts stay in English</aside>
+  <div id="comments">Comments stay in English</div>
+  <div class="ad">Advertisement stays in English</div>
+  <p hidden>Hidden content stays in English</p>
+</article>
+<footer>Footer stays in English</footer>
+</body></html>

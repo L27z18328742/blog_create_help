@@ -1,0 +1,14 @@
+:root { font: 15px/1.6 system-ui, sans-serif; color: #172b32; background: #f6f8f7; color-scheme: light; }
+body { margin: 0; padding: 24px; }
+body.popup { width: 310px; }
+main { max-width: 620px; margin: 24px auto; }
+h1 { font-size: 22px; margin: 0 0 12px; }
+p { margin: 12px 0; }
+label { display: block; margin: 18px 0; font-weight: 600; }
+input { box-sizing: border-box; display: block; width: 100%; margin-top: 6px; padding: 10px; border: 1px solid #98b0b7; border-radius: 6px; font: inherit; }
+button { cursor: pointer; font: inherit; border: 0; border-radius: 6px; padding: 10px 16px; background: #146b59; color: white; margin: 5px 6px 5px 0; }
+button:disabled { opacity: .55; cursor: wait; }
+button.secondary { color: #17493e; background: #e0eae6; }
+:focus-visible { outline: 3px solid #ce8a13; outline-offset: 3px; }
+[role=status] { min-height: 24px; overflow-wrap: anywhere; }
+small { font-weight: normal; color: #48646b; }

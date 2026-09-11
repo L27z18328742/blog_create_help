@@ -1,0 +1,19 @@
+{
+  "name": "blog-fulltext-translator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "typecheck": "tsc --noEmit",
+    "test": "npm run build && playwright test",
+    "test:api": "node --env-file=.env.local scripts/smoke-api.mjs",
+    "test:live": "npm run build && node --env-file=.env.local scripts/live-test.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.55.0",
+    "@types/chrome": "^0.1.0",
+    "esbuild": "^0.25.0",
+    "typescript": "^5.9.0"
+  }
+}
