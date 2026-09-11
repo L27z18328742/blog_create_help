@@ -100,7 +100,7 @@ const test = base.extend({
   },
 });
 
-test('user translates the complete article, preserves structure and behavior, and switches without another request', async ({ app }) => {
+test('user translates the complete article, preserves structure and behavior, and switches without another request', async ({ app }, testInfo) => {
   const { page, requests, openPopup } = app;
   const original = await page.locator('article').innerHTML();
   await page.locator('a').evaluate(link => link.addEventListener('click', event => {
@@ -124,6 +124,7 @@ test('user translates the complete article, preserves structure and behavior, an
   expect(requests[0].headers.cookie).toBeUndefined();
   expect(requests[0].headers.authorization).toBe('Bearer local-test-key');
   const sent = requests[0].body.messages[1].content;
+  await writeFile(testInfo.outputPath('fixture-request.json'), JSON.stringify(requests[0].body, null, 2));
   expect(sent).toContain('cacheKey');
   expect(sent).not.toMatch(/Navigation|Comments|Advertisement|Hidden content/);
   await popup.getByRole('button', { name: '切回原文' }).click();
@@ -221,6 +222,7 @@ test('LIVE MiMo: translates the original fixture through the installed extension
   // Read in page.evaluate so failed assertions/traces never contain the secret value.
   await options.locator('#apiKey').evaluate((input, key) => { input.value = key; }, process.env.MIMO_API_KEY);
   await options.getByRole('button', { name: '保存设置' }).click();
+  await options.locator('#apiKey').evaluate(input => { input.value = ''; });
   await expect(options.getByRole('status')).toContainText('设置已保存');
   await options.close();
   const original = await app.page.locator('article').innerHTML();
@@ -229,7 +231,10 @@ test('LIVE MiMo: translates the original fixture through the installed extension
   app.context.on('request', request => { if (request.url() === 'https://api.xiaomimimo.com/v1/chat/completions') calls++; });
   const popup = await app.openPopup();
   await popup.getByRole('button', { name: '翻译全文', exact: true }).click();
-  await expect(popup.getByRole('status')).toContainText('全文翻译完成', { timeout: 125_000 });
+  await expect(popup.getByRole('button', { name: '切回原文' }).or(
+    popup.getByRole('button', { name: '重试全文翻译' }),
+  )).toBeVisible({ timeout: 125_000 });
+  await expect(popup.getByRole('status')).toContainText('全文翻译完成');
   await expect(app.page.locator('h1')).toContainText(/[\u3400-\u9fff]/);
   for (const element of await app.page.locator('article > p:not([hidden]), h2, h3, figcaption').all()) {
     await expect(element).toContainText(/[\u3400-\u9fff]/);
